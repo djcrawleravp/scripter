@@ -1,7 +1,14 @@
 #!/bin/bash
 
-# SCRiPTeR Data
+
 # ----------------------------------
+#           SUPER HEADER
+
+# Colors
+BOLD_WHITE="\e[1;97m"
+RESET="\e[0m"
+
+# SCRiPTeR Data
 PRINTIMIR="https://raw.githubusercontent.com/djcrawleravp/scripter/refs/heads/main/scripts/printimir.sh"
 SUDERO="https://raw.githubusercontent.com/djcrawleravp/scripter/refs/heads/main/scripts/sudero.sh"
 
@@ -10,10 +17,13 @@ eval "$(curl -sL "$SUDERO")"
 eval "$(curl -sL "$PRINTIMIR")"
 # ----------------------------------
 
+# ----------------
+#  DEV MODE START
+# ----------------
 clear
-echo "------------------------"
-echo " Installing Dev Mode... "
-echo "------------------------"
+echo -e "${BOLD_WHITE}------------------------${RESET}"
+echo -e "${BOLD_WHITE} Installing Dev Mode... ${RESET}"
+echo -e "${BOLD_WHITE}------------------------${RESET}"
 echo ""
 echo ""
 
