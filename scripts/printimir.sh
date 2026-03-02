@@ -107,9 +107,11 @@ run_step() {
     if eval "$cmd" > /dev/null 2>&1; then
         wait_stop
         print_done
+        echo ""
     else
         wait_stop
         print_error "$error_msg"
+        echo ""
         exit 1
     fi
 }
