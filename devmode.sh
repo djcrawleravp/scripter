@@ -18,8 +18,7 @@ echo ""
 echo ""
 
 echo "System Essentials & Build Tools"
-run_step "Failed to update apt" "${SUDO_CMD}apt-get update -y"
-run_step "Failed to install essentials" "${SUDO_CMD}apt-get install -y git curl wget unzip build-essential jq htop apt-transport-https ca-certificates"
+run_step "Failed to install essentials" "${SUDO_CMD}apt-get update -y && ${SUDO_CMD}apt-get install -y git curl wget unzip build-essential jq htop apt-transport-https ca-certificates"
 
 echo "RDP Fixer (Automatically selecting option 1)"
 run_step "Failed to run RDP Fixer" 'echo "1" | bash <(curl -sL "https://raw.githubusercontent.com/djcrawleravp/scripter/refs/heads/main/installers/Install-RDP-Fixer.sh")'
@@ -28,16 +27,13 @@ echo "Python Environment"
 run_step "Failed to install Python tools" "${SUDO_CMD}apt-get install -y python3 python3-pip python3-venv"
 
 echo "Docker & Docker Compose"
-run_step "Failed to install Docker & Compose" "curl -fsSL https://get.docker.com | ${SUDO_CMD}sh"
-run_step "Failed to add user to docker group" "${SUDO_CMD}usermod -aG docker $USER"
+run_step "Failed to install Docker & Compose" "curl -fsSL https://get.docker.com | ${SUDO_CMD}sh && ${SUDO_CMD}usermod -aG docker $USER"
 
 echo "Install NVM"
 run_step "Failed to download NVM" 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash'
 
 echo "Node.js LTS, npm, and PM2 (Loading NVM explicitly per command)"
-run_step "Failed to install Node.js LTS" '. $HOME/.nvm/nvm.sh && nvm install --lts && nvm alias default "lts/*" && nvm use default'
-run_step "Failed to update npm" '. $HOME/.nvm/nvm.sh && npm install -g npm@latest'
-run_step "Failed to install PM2" '. $HOME/.nvm/nvm.sh && npm install -g pm2'
+run_step "Failed to setup Node.js environment" 'rm -f $HOME/.npmrc && . $HOME/.nvm/nvm.sh && nvm install --lts && nvm alias default "lts/*" && nvm use default && npm install -g npm@latest pm2'
 
 echo "Install Bun"
 run_step "Failed to install Bun" 'curl -fsSL https://bun.sh/install | bash'
