@@ -1,30 +1,29 @@
 #!/bin/bash
 
-# ==================================================================================
-#                                   SCRiPTeR Header
-# ==================================================================================
+# ==========================================================
+# CONFIGURACIÓN DINÁMICA
+# ==========================================================
 RAW_BASE="https://raw.githubusercontent.com/djcrawleravp/scripter/refs/heads/main"
 SCRIPTS="$RAW_BASE/scripts"
 INSTALLERS="$RAW_BASE/installers"
 
-# Libraries
+# Importar librerías
 eval "$(curl -sL "$SCRIPTS/sudero.sh")"
 eval "$(curl -sL "$SCRIPTS/printimir.sh")"
 
-# Text Styles
+# Estilos de Texto
 BOLD_WHITE="\e[1;97m"
 BOLD_YELLOW="\e[1;33m"
 RESET="\e[0m"
 
-# Title Styles
 title() {
     local texto="$1"
     local largo=${#texto}
     local linea=$(printf '%*s' "$largo" | tr ' ' '-')
     echo -e "\n${BOLD_YELLOW}${texto}"
-    echo -e "${linea}-${RESET}"
+    echo -e "${linea}${RESET}"
 }
-# ==================================================================================
+# ==========================================================
 
 clear
 echo -e "${BOLD_WHITE}----------------------------------------"
@@ -56,13 +55,13 @@ title "Cloudflare Wrangler"
 run_step "Failed to install Wrangler" '. $HOME/.nvm/nvm.sh && npm install -g wrangler@latest'
 
 title "Claude Code"
-run_step "Failed to install Claude CLI" "curl -fsSL https://claude.ai/install.sh | bash"
+run_step "Failed to install Claude CLI" ". \$HOME/.nvm/nvm.sh && bash <(curl -sL '$INSTALLERS/Install-Claude-CLI.sh')"
 
 title "Gemini CLI"
-run_step "Failed to install Gemini CLI" "npm install -g @google/gemini-cli"
+run_step "Failed to install Gemini CLI" ". \$HOME/.nvm/nvm.sh && bash <(curl -sL '$INSTALLERS/Install-Gemini-CLI.sh')"
 
 title "OpenAI Codex"
-run_step "Failed to install Codex CLI" "npm i -g @openai/codex"
+run_step "Failed to install Codex CLI" ". \$HOME/.nvm/nvm.sh && bash <(curl -sL '$INSTALLERS/Install-Codex-CLI.sh')"
 
 title "Google Antigravity IDE"
 run_step "Failed to install Antigravity" "bash <(curl -sL '$INSTALLERS/Install-Antigravity.sh')"
