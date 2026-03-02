@@ -11,7 +11,7 @@ _generate_phrase() {
     local ACTION="$1"
     local MESSAGE="$2"
 
-    local EDIBLE=("guarapo" "moco chinchi" "chuflay" "cuñapé" "pan de arroz" "asadito" "bolito" "cheruje")
+    local EDIBLE=("guarapito" "moco chinchi" "chuflay" "cuñapé" "pan de arroz" "salteña" "asadito" "bolito" "cheruje")
     local DUDE=("broder" "peji" "mijito" "mijita" "viejito" "socio" "hija" "oe")
 
     local RANDOM_EDIBLE=${EDIBLE[$((RANDOM % ${#EDIBLE[@]}))]}
