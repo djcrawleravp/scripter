@@ -23,6 +23,15 @@ title() {
     echo -e "\n${BOLD_YELLOW}${texto}"
     echo -e "${linea}${RESET}"
 }
+
+# --- PUENTE NVM (Para que npm funcione "así nomás") ---
+npm() {
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    command npm "$@"
+}
+# ------------------------------------------------------
+
 # ==========================================================
 
 clear
@@ -46,13 +55,13 @@ title "NVM"
 run_step "Failed to download NVM" 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash'
 
 title "Node.js Environment (LTS, npm, PM2)"
-run_step "Failed to setup Node.js" 'rm -f $HOME/.npmrc && . $HOME/.nvm/nvm.sh && nvm install --lts && nvm alias default "lts/*" && nvm use default && npm install -g npm@latest pm2'
+run_step "Failed to setup Node.js" 'rm -f $HOME/.npmrc && export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" && nvm install --lts && nvm alias default "lts/*" && nvm use default && npm install -g npm@latest pm2'
 
 title "Bun"
 run_step "Failed to install Bun" 'curl -fsSL https://bun.sh/install | bash && export BUN_INSTALL="$HOME/.bun" && export PATH="$BUN_INSTALL/bin:$PATH"'
 
 title "Cloudflare Wrangler"
-run_step "Failed to install Wrangler" '. $HOME/.nvm/nvm.sh && npm install -g wrangler@latest'
+run_step "Failed to install Wrangler" "npm install -g wrangler@latest"
 
 title "Claude Code"
 run_step "Failed to install Claude Code" "npm install -g @anthropic-ai/claude-code"
