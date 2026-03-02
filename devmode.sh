@@ -56,13 +56,13 @@ title "Cloudflare Wrangler"
 run_step "Failed to install Wrangler" '. $HOME/.nvm/nvm.sh && npm install -g wrangler@latest'
 
 title "Claude Code"
-run_step "Failed to install Claude CLI" "bash <(curl -sL '$INSTALLERS/Install-Claude-CLI.sh')"
+run_step "Failed to install Claude CLI" "curl -fsSL https://claude.ai/install.sh | bash"
 
 title "Gemini CLI"
-run_step "Failed to install Gemini CLI" "bash <(curl -sL '$INSTALLERS/Install-Gemini-CLI.sh')"
+run_step "Failed to install Gemini CLI" "npm install -g @google/gemini-cli"
 
 title "OpenAI Codex"
-run_step "Failed to install Codex CLI" "bash <(curl -sL '$INSTALLERS/Install-Codex-CLI.sh')"
+run_step "Failed to install Codex CLI" "npm i -g @openai/codex"
 
 title "Google Antigravity IDE"
 run_step "Failed to install Antigravity" "bash <(curl -sL '$INSTALLERS/Install-Antigravity.sh')"
