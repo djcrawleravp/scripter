@@ -43,8 +43,14 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 echo "Cloudflare Wrangler (Installed globally)"
 run_step "Failed to install Wrangler" '. $HOME/.nvm/nvm.sh && npm install -g wrangler@latest'
 
-echo "AI CLIs (Installed globally via NPM)"
-run_step "Failed to install AI CLIs" '. $HOME/.nvm/nvm.sh && npm install -g opencode-cli gemini-cli openai-cli claude-cli'
+echo "Claude Code CLI"
+run_step "Failed to install Claude Code" 'curl -fsSL https://claude.ai/install.sh | bash'
+
+echo "Claude Gemini CLI"
+run_step "Failed to Gemini CLI" 'npm install -g @google/gemini-cli'
+
+echo "Claude OpenAI Codex"
+run_step "Failed to OpenAI Codex" 'npm i -g @openai/codex'
 
 echo "Setup APT Keyrings for IDEs"
 run_step "Failed to create keyrings directory" "${SUDO_CMD}mkdir -p /etc/apt/keyrings"
