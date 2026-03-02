@@ -2,12 +2,12 @@
 
 # SCRiPTeR Data
 # ----------------------------------
-PRINTIMIR="https://raw.githubusercontent.com/djcrawleravp/scripter/refs/heads/scripts/printimir.sh"
+PRINTIMIR="https://raw.githubusercontent.com/djcrawleravp/scripter/refs/heads/main/scripts/printimir.sh"
 SUDERO="https://raw.githubusercontent.com/djcrawleravp/scripter/refs/heads/main/scripts/sudero.sh"
 
-# Import libraries
-source <(curl -sL "$SUDERO")
-source <(curl -sL "$PRINTIMIR")
+# Import libraries (usando eval soluciona el error al ejecutar con curl | bash)
+eval "$(curl -sL "$SUDERO")"
+eval "$(curl -sL "$PRINTIMIR")"
 # ----------------------------------
 
 clear
