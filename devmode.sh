@@ -14,7 +14,11 @@ BOLD_WHITE="\e[1;97m"
 RESET="\e[0m"
 
 title() {
-    echo -e "\n${BOLD_WHITE}>>> $1${RESET}"
+    local texto="$1"
+    local largo=${#texto}
+    local linea=$(printf '%*s' "$largo" | tr ' ' '-')
+    echo -e "\n${BOLD_WHITE}${texto}"
+    echo -e "${linea}-${RESET}"
 }
 # ----------------------------------
 
@@ -48,13 +52,13 @@ title "Cloudflare Wrangler"
 run_step "Failed to install Wrangler" '. $HOME/.nvm/nvm.sh && npm install -g wrangler@latest'
 
 title "Claude Code"
-run_step "Failed to install AI CLIs" 'curl -sL "https://raw.githubusercontent.com/djcrawleravp/scripter/refs/heads/main/installers/Install-Claude-CLI.sh"'
+run_step "Failed to install Claude CLI" 'bash <(curl -sL "https://raw.githubusercontent.com/djcrawleravp/scripter/refs/heads/main/installers/Install-Claude-CLI.sh")'
 
 title "Gemini CLI"
-run_step "Failed to install AI CLIs" 'curl -sL "https://raw.githubusercontent.com/djcrawleravp/scripter/refs/heads/main/installers/Install-Gemini-CLI.sh"'
+run_step "Failed to install Gemini CLI" 'bash <(curl -sL "https://raw.githubusercontent.com/djcrawleravp/scripter/refs/heads/main/installers/Install-Gemini-CLI.sh")'
 
 title "OpenAI Codex"
-run_step "Failed to install AI CLIs" 'curl -sL "https://raw.githubusercontent.com/djcrawleravp/scripter/refs/heads/main/installers/Install-Codex-CLI.sh"'
+run_step "Failed to install Codex CLI" 'bash <(curl -sL "https://raw.githubusercontent.com/djcrawleravp/scripter/refs/heads/main/installers/Install-Codex-CLI.sh")'
 
 title "Google Antigravity IDE"
 run_step "Failed to install Antigravity" 'bash <(curl -sL "https://raw.githubusercontent.com/djcrawleravp/scripter/refs/heads/main/installers/Install-Antigravity.sh")'
