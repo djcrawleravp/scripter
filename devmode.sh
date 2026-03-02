@@ -55,14 +55,10 @@ run_step "Failed to OpenAI Codex" 'npm i -g @openai/codex'
 echo "Setup APT Keyrings for IDEs"
 run_step "Failed to create keyrings directory" "${SUDO_CMD}mkdir -p /etc/apt/keyrings"
 
-echo "Google Antigravity IDE (Official Debian Repository)"
-run_step "Failed to add Antigravity key" "curl -fsSL https://us-central1-apt.pkg.dev/doc/repo-signing-key.gpg | ${SUDO_CMD}gpg --dearmor --yes -o /etc/apt/keyrings/antigravity-repo-key.gpg"
-run_step "Failed to add Antigravity repo" "echo 'deb [signed-by=/etc/apt/keyrings/antigravity-repo-key.gpg] https://us-central1-apt.pkg.dev/projects/antigravity-auto-updater-dev/ antigravity-debian main' | ${SUDO_CMD}tee /etc/apt/sources.list.d/antigravity.list > /dev/null"
-run_step "Failed to install Antigravity IDE" "${SUDO_CMD}apt-get update -y && ${SUDO_CMD}apt-get install -y antigravity"
+echo "Google Antigravity IDE"
+run_step "Failed to install Antigravity" 'bash <(curl -sL "https://raw.githubusercontent.com/djcrawleravp/scripter/refs/heads/main/installers/Install-Antigravity.sh")'
 
-echo "Windsurf IDE (Official Debian Repository)"
-run_step "Failed to add Windsurf key" "wget -qO- 'https://windsurf-stable.codeiumdata.com/wVxQEIWkwPUEAGf3/windsurf.gpg' | ${SUDO_CMD}gpg --dearmor --yes -o /etc/apt/keyrings/windsurf-stable.gpg"
-run_step "Failed to add Windsurf repo" "echo 'deb [arch=amd64 signed-by=/etc/apt/keyrings/windsurf-stable.gpg] https://windsurf-stable.codeiumdata.com/wVxQEIWkwPUEAGf3/apt stable main' | ${SUDO_CMD}tee /etc/apt/sources.list.d/windsurf.list > /dev/null"
-run_step "Failed to install Windsurf IDE" "${SUDO_CMD}apt-get update -y && ${SUDO_CMD}apt-get install -y windsurf"
+echo "Windsurf IDE"
+run_step "Failed to install Windsurf" 'bash <(curl -sL "https://raw.githubusercontent.com/djcrawleravp/scripter/refs/heads/main/installers/Install-WindSurf.sh")'
 
 echo "Mic drop... "
