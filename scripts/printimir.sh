@@ -25,7 +25,7 @@ _generate_phrase() {
                 "Take it easy $RANDOM_DUDE, almost there..."
                 "Perate a u..."
                 "One ratito please..."
-                "Will you accept this $RANDOM_EDIBLE while you wait?"
+                "Will you accept this $RANDOM_EDIBLE while we wait?"
             )
             ;;
         done)
