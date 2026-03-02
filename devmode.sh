@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # SCRiPTeR Data
-# -------------------------------------------------------------------------------------------------------
+# ----------------------------------
 PRINTIMIR="https://raw.githubusercontent.com/djcrawleravp/scripter/refs/heads/main/scripts/printimir.sh"
 SUDERO="https://raw.githubusercontent.com/djcrawleravp/scripter/refs/heads/main/scripts/sudero.sh"
 
@@ -14,9 +14,9 @@ BOLD_WHITE="\e[1;97m"
 RESET="\e[0m"
 
 title() {
-    echo -e "\n${BOLD_WHITE}>>> $1$ <<<{RESET}"
+    echo -e "\n${BOLD_WHITE}>>> $1${RESET}"
 }
-# -------------------------------------------------------------------------------------------------------
+# ----------------------------------
 
 clear
 echo -e "${BOLD_WHITE}----------------------------------------"
