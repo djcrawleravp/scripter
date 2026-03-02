@@ -81,4 +81,5 @@ run_step "Failed to install Antigravity" "bash <(curl -sL '$INSTALLERS/Install-A
 title "Windsurf IDE"
 run_step "Failed to install Windsurf" "bash <(curl -sL '$INSTALLERS/Install-WindSurf.sh')"
 
-print_done
+echo -ne "${BOLD_WHITE}"; print_done; echo -e "${RESET}"
+echo ""
