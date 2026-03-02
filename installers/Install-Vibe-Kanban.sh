@@ -85,4 +85,3 @@ fi
 
 echo ""
 echo "Mic drop..."
-rm -- "$0"
