@@ -8,8 +8,7 @@ eval "$(curl -sL "https://raw.githubusercontent.com/djcrawleravp/scripter/refs/h
 script_name "DISK AUTO-EXPANDER"
 
 title "System Essentials & Build Tools"
-# Added 'cron' to the install list to ensure the crontab command exists
-run_step "Failed to install tools" "${SUDO_CMD}apt-get update -y && ${SUDO_CMD}apt-get install -y cloud-guest-utils cron"
+run_step "Failed to install tools" "install_packages cloud-guest-utils cron"
 
 title "Create Auto-Expander Script"
 run_step "Error while creating expand-disk script" "${SUDO_CMD} tee /usr/local/bin/expand-disk.sh > /dev/null << 'EOF'
@@ -21,7 +20,6 @@ EOF
 ${SUDO_CMD} chmod +x /usr/local/bin/expand-disk.sh"
 
 title "Schedule Root Cronjob"
-# Added curly braces for better grouping and grep -v to prevent duplicate entries
 run_step "Setting the root cronjob failed" "{ ${SUDO_CMD} crontab -l 2>/dev/null | grep -v 'expand-disk.sh'; echo '@reboot /usr/local/bin/expand-disk.sh'; } | ${SUDO_CMD} crontab -"
 
 # Success Message (No more fried chicken!)
