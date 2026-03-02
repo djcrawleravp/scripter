@@ -55,13 +55,13 @@ title "Cloudflare Wrangler"
 run_step "Failed to install Wrangler" '. $HOME/.nvm/nvm.sh && npm install -g wrangler@latest'
 
 title "Claude Code"
-run_step "Failed to install Claude Code" ". \$HOME/.nvm/nvm.sh && npm install -g @anthropic-ai/claude-code"
+run_step "Failed to install Claude Code" "npm install -g @anthropic-ai/claude-code"
 
 title "Gemini CLI"
-run_step "Failed to install Gemini CLI" ". \$HOME/.nvm/nvm.sh && npm install -g @google/generative-ai"
+run_step "Failed to install Gemini CLI" "npm install -g @google/generative-ai"
 
 title "OpenAI CLI"
-run_step "Failed to install OpenAI CLI" ". \$HOME/.nvm/nvm.sh && npm install -g openai"
+run_step "Failed to install OpenAI CLI" "npm i -g @openai/codex"
 
 title "Google Antigravity IDE"
 run_step "Failed to install Antigravity" "bash <(curl -sL '$INSTALLERS/Install-Antigravity.sh')"
