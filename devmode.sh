@@ -47,8 +47,14 @@ run_step "Failed to install Bun" 'curl -fsSL https://bun.sh/install | bash && ex
 title "Cloudflare Wrangler"
 run_step "Failed to install Wrangler" '. $HOME/.nvm/nvm.sh && npm install -g wrangler@latest'
 
-title "AI Dedicated CLIs (Claude, Gemini, Codex)"
-run_step "Failed to install AI CLIs" 'bash <(curl -sL "https://raw.githubusercontent.com/djcrawleravp/scripter/refs/heads/main/installers/Install-Claude-CLI.sh") && bash <(curl -sL "https://raw.githubusercontent.com/djcrawleravp/scripter/refs/heads/main/installers/Install-Gemini-CLI.sh") && bash <(curl -sL "https://raw.githubusercontent.com/djcrawleravp/scripter/refs/heads/main/installers/Install-Codex-CLI.sh")'
+title "Claude Code"
+run_step "Failed to install AI CLIs" 'curl -sL "https://raw.githubusercontent.com/djcrawleravp/scripter/refs/heads/main/installers/Install-Claude-CLI.sh"'
+
+title "Gemini CLI"
+run_step "Failed to install AI CLIs" 'curl -sL "https://raw.githubusercontent.com/djcrawleravp/scripter/refs/heads/main/installers/Install-Gemini-CLI.sh"'
+
+title "OpenAI Codex"
+run_step "Failed to install AI CLIs" 'curl -sL "https://raw.githubusercontent.com/djcrawleravp/scripter/refs/heads/main/installers/Install-Codex-CLI.sh"'
 
 title "Google Antigravity IDE"
 run_step "Failed to install Antigravity" 'bash <(curl -sL "https://raw.githubusercontent.com/djcrawleravp/scripter/refs/heads/main/installers/Install-Antigravity.sh")'
