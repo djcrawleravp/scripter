@@ -51,7 +51,7 @@ if curl -s -I "$URL" --max-time 1 > /dev/null; then
 fi
 
 # 3. SI NO DA OK: Limpieza brutal (exactamente como pediste) y arranque nuevo
-notify-send "Vibe-Kanban" "Calentando motores..." -t 2000
+notify-send "Vibe-Kanban" "Warming up..." -t 2000
 
 pkill -f "$APP" 2>/dev/null
 sleep 1
