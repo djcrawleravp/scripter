@@ -32,7 +32,7 @@ title() {
     local largo=${#texto}
     local linea=$(printf '%*s' "$largo" | tr ' ' '-')
     echo -e "\n${BOLD_YELLOW}${texto}"
-    echo -e "${linea}${RESET}"
+    echo -e "${linea}-${RESET}"
 }
 
 # NVM Bridge
