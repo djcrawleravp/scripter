@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Importar Header
+# Import Header
 eval "$(curl -sL "https://raw.githubusercontent.com/djcrawleravp/scripter/refs/heads/main/scripts/header.sh")"
 
 # Script Init
@@ -45,5 +45,5 @@ run_step "Failed Antigravity" "bash <(curl -sL '$INSTALLERS/Install-Antigravity.
 title "Windsurf IDE"
 run_step "Failed Windsurf" "bash <(curl -sL '$INSTALLERS/Install-WindSurf.sh')"
 
-# Cierre con estilo
+# End
 echo -ne "${BOLD_WHITE}"; print_done; ${RESET}"
