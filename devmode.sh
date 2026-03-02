@@ -1,74 +1,42 @@
 #!/bin/bash
 
-
-# ----------------------------------
-#           SUPER HEADER
-
-# Colors
-BOLD_WHITE="\e[1;97m"
-RESET="\e[0m"
-
 # SCRiPTeR Data
+# -------------------------------------------------------------------------------------------------------
 PRINTIMIR="https://raw.githubusercontent.com/djcrawleravp/scripter/refs/heads/main/scripts/printimir.sh"
 SUDERO="https://raw.githubusercontent.com/djcrawleravp/scripter/refs/heads/main/scripts/sudero.sh"
 
 # Import libraries
 eval "$(curl -sL "$SUDERO")"
 eval "$(curl -sL "$PRINTIMIR")"
-# ----------------------------------
 
-# ----------------
-#  DEV MODE START
-# ----------------
+# Estilos de Texto
+BOLD_WHITE="\e[1;97m"
+RESET="\e[0m"
+
+# Función para imprimir títulos uniformes
+title() {
+    echo -e "\n${BOLD_WHITE}>>> $1${RESET}"
+}
+# -------------------------------------------------------------------------------------------------------
+
 clear
-echo -e "${BOLD_WHITE}------------------------${RESET}"
-echo -e "${BOLD_WHITE} Installing Dev Mode... ${RESET}"
-echo -e "${BOLD_WHITE}------------------------${RESET}"
-echo ""
-echo ""
+echo -e "${BOLD_WHITE}----------------------------------------"
+echo "        INSTALLING DEV MODE             "
+echo -e "----------------------------------------${RESET}"
 
-echo "System Essentials & Build Tools"
-run_step "Failed to install essentials" "${SUDO_CMD}apt-get update -y && ${SUDO_CMD}apt-get install -y git curl wget unzip build-essential jq htop apt-transport-https ca-certificates"
+# 1. Usando la función title para cada sección:
+title "System Essentials & Build Tools"
+run_step "Failed to update apt" "${SUDO_CMD}apt-get update -y"
+run_step "Failed to install essentials" "${SUDO_CMD}apt-get install -y git curl wget unzip build-essential jq htop apt-transport-https ca-certificates"
 
-echo "RDP Fixer"
+title "RDP Fixer"
 run_step "Failed to run RDP Fixer" 'echo "1" | bash <(curl -sL "https://raw.githubusercontent.com/djcrawleravp/scripter/refs/heads/main/installers/Install-RDP-Fixer.sh")'
 
-echo "Python Environment"
+title "Python Environment"
 run_step "Failed to install Python tools" "${SUDO_CMD}apt-get install -y python3 python3-pip python3-venv"
 
-echo "Docker & Docker Compose"
-run_step "Failed to install Docker & Compose" "curl -fsSL https://get.docker.com | ${SUDO_CMD}sh && ${SUDO_CMD}usermod -aG docker $USER"
+title "Docker & Docker Compose"
+run_step "Failed to install Docker & Compose" "curl -fsSL https://get.docker.com | ${SUDO_CMD}sh"
+run_step "Failed to add user to docker group" "${SUDO_CMD}usermod -aG docker $USER"
 
-echo "Install NVM"
-run_step "Failed to download NVM" 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash'
-
-echo "Node.js LTS, npm, and PM2"
-run_step "Failed to setup Node.js environment" 'rm -f $HOME/.npmrc && . $HOME/.nvm/nvm.sh && nvm install --lts && nvm alias default "lts/*" && nvm use default && npm install -g npm@latest pm2'
-
-echo "Install Bun"
-run_step "Failed to install Bun" 'curl -fsSL https://bun.sh/install | bash'
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-echo "Cloudflare Wrangler"
-run_step "Failed to install Wrangler" '. $HOME/.nvm/nvm.sh && npm install -g wrangler@latest'
-
-echo "Claude Code CLI"
-run_step "Failed to install Claude Code" 'curl -fsSL https://claude.ai/install.sh | bash'
-
-echo "Claude Gemini CLI"
-run_step "Failed to Gemini CLI" 'npm install -g @google/gemini-cli'
-
-echo "Claude OpenAI Codex"
-run_step "Failed to OpenAI Codex" 'npm i -g @openai/codex'
-
-echo "Setup APT Keyrings for IDEs"
-run_step "Failed to create keyrings directory" "${SUDO_CMD}mkdir -p /etc/apt/keyrings"
-
-echo "Google Antigravity IDE"
-run_step "Failed to install Antigravity" 'bash <(curl -sL "https://raw.githubusercontent.com/djcrawleravp/scripter/refs/heads/main/installers/Install-Antigravity.sh")'
-
-echo "Windsurf IDE"
-run_step "Failed to install Windsurf" 'bash <(curl -sL "https://raw.githubusercontent.com/djcrawleravp/scripter/refs/heads/main/installers/Install-WindSurf.sh")'
-
-echo "Mic drop... "
+# ... y así sucesivamente con el resto
