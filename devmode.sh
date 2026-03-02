@@ -16,22 +16,24 @@ BOLD_WHITE="\e[1;97m"
 BOLD_YELLOW="\e[1;33m"
 RESET="\e[0m"
 
+# Contador de Títulos
+TITLE_COUNT=0
+
 title() {
-    local texto="$1"
+    ((TITLE_COUNT++))
+    local texto="${TITLE_COUNT}. $1"
     local largo=${#texto}
     local linea=$(printf '%*s' "$largo" | tr ' ' '-')
     echo -e "\n${BOLD_YELLOW}${texto}"
     echo -e "${linea}-${RESET}"
 }
 
-# --- PUENTE NVM (Para que npm funcione "así nomás") ---
+# NPM Bridge
 npm() {
     export NVM_DIR="$HOME/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
     command npm "$@"
 }
-# ------------------------------------------------------
-
 # ==========================================================
 
 clear
