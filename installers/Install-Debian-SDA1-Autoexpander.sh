@@ -9,7 +9,7 @@ script_name "DISK AUTO-EXPANDER"
 
 title "System Essentials & Build Tools"
 # Added 'cron' to the install list to ensure the crontab command exists
-run_step "Failed to install tools" "${SUDO_CMD}apt-get update -y && ${SUDO_CMD}apt-get install -y cloud-guest-utils cron"
+run_step "Failed to install tools" "${SUDO_CMD} apt-get update -y && ${SUDO_CMD} apt-get install -y cloud-guest-utils cron"
 
 title "Create Auto-Expander Script"
 run_step "Error while creating expand-disk script" "${SUDO_CMD} tee /usr/local/bin/expand-disk.sh > /dev/null << 'EOF'
