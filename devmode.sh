@@ -11,14 +11,15 @@ eval "$(curl -sL "$PRINTIMIR")"
 
 # Estilos de Texto
 BOLD_WHITE="\e[1;97m"
+BOLD_YELLOW="\e[1;33m"
 RESET="\e[0m"
 
 title() {
     local texto="$1"
     local largo=${#texto}
     local linea=$(printf '%*s' "$largo" | tr ' ' '-')
-    echo -e "\n${BOLD_WHITE}${texto}"
-    echo -e "${linea}-${RESET}"
+    echo -e "\n${BOLD_YELLOW}${texto}"
+    echo -e "${linea}${RESET}"
 }
 # ----------------------------------
 
