@@ -46,4 +46,4 @@ title "Windsurf IDE"
 run_step "Failed Windsurf" "bash <(curl -sL '$INSTALLERS/Install-WindSurf.sh')"
 
 # End
-echo -ne "${BOLD_WHITE}"; print_done; ${RESET}"
+print_done
