@@ -40,6 +40,7 @@ clear
 echo -e "${BOLD_WHITE}----------------------------------------"
 echo "        INSTALLING DEV MODE             "
 echo -e "----------------------------------------${RESET}"
+echo ""
 
 title "System Essentials & Build Tools"
 run_step "Failed to update and install essentials" "${SUDO_CMD}apt-get update -y && ${SUDO_CMD}apt-get install -y git curl wget unzip build-essential jq htop apt-transport-https ca-certificates"
