@@ -25,4 +25,4 @@ title "Schedule Root Cronjob"
 run_step "Setting the root cronjob failed" "{ ${SUDO_CMD} crontab -l 2>/dev/null | grep -v 'expand-disk.sh'; echo '@reboot /usr/local/bin/expand-disk.sh'; } | ${SUDO_CMD} crontab -"
 
 # Success Message (No more fried chicken!)
-echo -e "${GREEN}$(print_done | tr -d '\n' | sed 's/\x1b\[0m//g') /dev/sda1 is now set to auto-expand on every boot.${RESET}"
+echo -e "${GREEN}$(print_done | tr -d '\n' | sed 's/\x1b\[0m//g') "/dev/sda1" is now set to auto-expand on every boot.${RESET}"
