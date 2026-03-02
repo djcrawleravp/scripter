@@ -68,9 +68,15 @@ _generate_phrase() {
 }
 
 _wait_loop() {
+    local count=0
     while true; do
         printf "\r\033[K%s" "$(_generate_phrase wait)"
         sleep 5
+        ((count++))
+        # Safety timeout after 10 minutes (120 * 5 seconds)
+        if [[ $count -gt 120 ]]; then
+            break
+        fi
     done
 }
 
@@ -81,8 +87,15 @@ print_wait() {
 }
 
 wait_stop() {
-    if [ -n "$PRINTIMIR_PID" ]; then
-        kill $PRINTIMIR_PID 2>/dev/null
+    if [[ -n "$PRINTIMIR_PID" ]]; then
+        # Kill entire process group to ensure cleanup
+        kill -TERM "$PRINTIMIR_PID" 2>/dev/null
+        # Wait a moment for graceful termination
+        sleep 0.5
+        # Force kill if still running
+        kill -KILL "$PRINTIMIR_PID" 2>/dev/null
+        # Clean up any zombie processes
+        wait "$PRINTIMIR_PID" 2>/dev/null
         printf "\r\033[K"
         PRINTIMIR_PID=""
     fi
@@ -102,9 +115,33 @@ run_step() {
     local error_msg="$1"
     shift
     local cmd="$@"
+    local timeout=300  # 5 minutes default timeout
 
     print_wait
-    if eval "$cmd" > /dev/null 2>&1; then
+    
+    # Run command with timeout in background
+    eval "$cmd" > /dev/null 2>&1 &
+    local cmd_pid=$!
+    
+    # Wait for command to complete or timeout
+    local elapsed=0
+    while kill -0 "$cmd_pid" 2>/dev/null; do
+        sleep 1
+        ((elapsed++))
+        if [[ $elapsed -ge $timeout ]]; then
+            kill -TERM "$cmd_pid" 2>/dev/null
+            sleep 1
+            kill -KILL "$cmd_pid" 2>/dev/null
+            wait "$cmd_pid" 2>/dev/null
+            wait_stop
+            print_error "$error_msg (timeout after ${timeout}s)"
+            echo ""
+            exit 1
+        fi
+    done
+    
+    # Check command result
+    if wait "$cmd_pid"; then
         wait_stop
         print_done
         echo ""
