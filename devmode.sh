@@ -8,13 +8,13 @@ eval "$(curl -sL "https://raw.githubusercontent.com/djcrawleravp/scripter/refs/h
 script_name "DEV MODE"
 
 title "System Essentials & Build Tools"
-run_step "Failed essentials" "${SUDO_CMD}apt-get update -y && ${SUDO_CMD}apt-get install -y git curl wget unzip build-essential jq htop apt-transport-https ca-certificates"
+run_step "Failed essentials" "install_packages git curl wget unzip build-essential jq htop apt-transport-https ca-certificates"
 
 title "RDP Fixer"
 run_step "Failed RDP Fixer" "echo '1' | bash <(curl -sL '$INSTALLERS/Install-RDP-Fixer.sh')"
 
 title "Python Environment"
-run_step "Failed Python" "${SUDO_CMD}apt-get install -y python3 python3-pip python3-venv"
+run_step "Failed Python" "install_packages python3 python3-pip python3-venv"
 
 title "Docker & Docker Compose"
 run_step "Failed Docker" "curl -fsSL https://get.docker.com | ${SUDO_CMD}sh && ${SUDO_CMD}usermod -aG docker \$USER"
