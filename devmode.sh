@@ -47,4 +47,4 @@ title "Windsurf IDE"
 run_step "Failed Windsurf" "bash <(curl -sL '$INSTALLERS/Install-WindSurf.sh')"
 
 # End
-print_done; echo -e "${GREEN} All processes were successfully installed.${RESET}"
+echo -e "${GREEN}$(print_done | tr -d '\n' | sed 's/\x1b\[0m//g') All processes were successfully installed.${RESET}"
