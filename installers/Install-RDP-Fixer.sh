@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Import Header for optimized functions
+eval "$(curl -sL "https://raw.githubusercontent.com/djcrawleravp/scripter/refs/heads/main/scripts/header.sh")"
+
 # Variables de ruta y nombre
 SERVICE_NAME="RDP-Fixer"
 SCRIPT_DIR="$HOME/Scripts"
@@ -9,7 +12,8 @@ LOOP_SCRIPT="$FIX_SCRIPT_DIR/daemon.sh"
 USER_SERVICE_DIR="$HOME/.config/systemd/user"
 SERVICE_FILE="$USER_SERVICE_DIR/$SERVICE_NAME.service"
 
-clear
+script_name "RDP FIXER"
+
 echo "----------------"
 echo " $SERVICE_NAME"
 echo "----------------"
@@ -29,11 +33,11 @@ case $OPCION in
         sudo -v
         echo ""
 
-        echo "Hold my guarapo..."
-        echo ""
-        sudo apt update >/dev/null 2>&1 && sudo apt install xdotool iproute2 libnotify-bin -y >/dev/null 2>&1
-        mkdir -p "$FIX_SCRIPT_DIR"
-        mkdir -p "$USER_SERVICE_DIR"
+        title "Install Dependencies"
+        run_step "Failed to install dependencies" "install_packages xdotool iproute2 libnotify-bin"
+
+        title "Create Directories"
+        run_step "Failed to create directories" "mkdir -p '$FIX_SCRIPT_DIR' '$USER_SERVICE_DIR'"
 
         # GENERAR SCRIPT DE ACCIÓN (fix.sh)
         cat <<EOF > "$FIX_SCRIPT"
@@ -105,16 +109,20 @@ After=network.target
 [Service]
 ExecStart="$LOOP_SCRIPT"
 Restart=always
+RestartSec=5
 
 [Install]
 WantedBy=default.target
 EOF
 
         # Instalación silenciosa
-        systemctl --user daemon-reload >/dev/null 2>&1
-        systemctl --user enable "$SERVICE_NAME.service" >/dev/null 2>&1
-        systemctl --user restart "$SERVICE_NAME.service" >/dev/null 2>&1
-        loginctl enable-linger "$USER" >/dev/null 2>&1
+        title "Install System Service"
+        run_step "Failed to install service" "
+        systemctl --user daemon-reload >/dev/null 2>&1 && \
+        systemctl --user enable '$SERVICE_NAME.service' >/dev/null 2>&1 && \
+        systemctl --user restart '$SERVICE_NAME.service' >/dev/null 2>&1 && \
+        loginctl enable-linger '$USER' >/dev/null 2>&1
+        "
         
         if systemctl --user is-active --quiet "$SERVICE_NAME.service"; then
             echo "**Drops mic**"
@@ -124,14 +132,21 @@ EOF
         ;;
 
     2)
-        echo ""
-        echo "Wiping out..."
-        echo ""
-        systemctl --user stop "$SERVICE_NAME.service" >/dev/null 2>&1
-        systemctl --user disable "$SERVICE_NAME.service" >/dev/null 2>&1
-        rm -f "$SERVICE_FILE" "$FIX_SCRIPT" "$LOOP_SCRIPT"
-        rmdir "$FIX_SCRIPT_DIR" 2>/dev/null
+        script_name "RDP FIXER - UNINSTALL"
+        
+        title "Stop and Remove Service"
+        run_step "Failed to remove service" "
+        systemctl --user stop '$SERVICE_NAME.service' >/dev/null 2>&1 && \
+        systemctl --user disable '$SERVICE_NAME.service' >/dev/null 2>&1 && \
         systemctl --user daemon-reload >/dev/null 2>&1
+        "
+        
+        title "Remove Files"
+        run_step "Failed to remove files" "
+        rm -f '$SERVICE_FILE' '$FIX_SCRIPT' '$LOOP_SCRIPT' && \
+        rmdir '$FIX_SCRIPT_DIR' 2>/dev/null || true
+        "
+        
         echo "Nothing to see here!"
         ;;
 
